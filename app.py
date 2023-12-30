@@ -93,8 +93,8 @@ class Cloner:
         os.system("rm -rf *")
         print("Songs are fetching from this url:")
         print(f"Adres: {self.current_url}")
-        subprocess.run(['yt-dlp', '-x', self.current_url], stdout=subprocess.STDOUT,
-                       stderr=subprocess.STDOUT)
+        subprocess.run(['yt-dlp', '-x', self.current_url], stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL)
         print("Songs are fetched successfully!")
 
     def fetch_cover(self):
