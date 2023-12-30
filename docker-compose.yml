@@ -7,7 +7,4 @@ services:
       - ./music:/app/music
       - ./temp:/app/temp
 
-    command: python3 /app/app.py urls.txt
-    entrypoint:
-      - /bin/sh
-      - -c
+    command: python3 app.py urls.txt

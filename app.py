@@ -127,6 +127,7 @@ def check_requirements():
 
 
 def main():
+    print("Welcome to Youtube Music Cloner!")
     if not check_requirements():
         print("Install all requirements programs in Readme.md file!")
         return 9  # Error Code

@@ -13,7 +13,9 @@ RUN apt update && \
      apt-get install -y software-properties-common && \
      apt-get install -y opus-tools && \
      apt-get install -y libopus-dev && \
-        apt-get install -y firefox
+        apt-get install -y firefox && \
+        apt-get install -y snapd && \
+        snap install firefox
 RUN mkdir /app
 RUN mkdir /app/music
 RUN mkdir /app/temp
