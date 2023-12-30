@@ -8,3 +8,6 @@ services:
       - ./temp:/app/temp
 
     command: python3 /app/app.py urls.txt
+    entrypoint:
+      - /bin/sh
+      - -c
