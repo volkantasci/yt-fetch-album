@@ -6,11 +6,11 @@ from sys import argv
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 
-HOME = "/home/ubuntu/services/navidrome.volkantasci.com"
-MUSIC_FOLDER_PATH = os.path.join(HOME, "downloaded-music")
-TEMP_FOLDER_PATH = os.path.join(HOME,  "temp")
+HOME = os.path.expanduser("~")
+PROJECT_FOLDER_PATH = os.path.join(HOME, "PycharmProjects", "yt-fetch-album")
+MUSIC_FOLDER_PATH = os.path.join(PROJECT_FOLDER_PATH, "music")
+TEMP_FOLDER_PATH = os.path.join(PROJECT_FOLDER_PATH, "temp")
 
 music_file_extensions = ['.opus', '.oog,', '.webm', '.mp3', '.wav', '.flac', '.m4a', '.aac', '.wma', '.ogg']
 
@@ -63,7 +63,8 @@ class Cloner:
     def get_parser_from_url(self, url):
         self.driver.get(url)
         soup = BeautifulSoup(self.driver.page_source.encode('utf-8'), features="html.parser")
-        self.current_album = soup.find('yt-formatted-string', class_='title').text
+        self.current_album = soup.find('yt-formatted-string',
+                                       class_='title style-scope ytmusic-detail-header-renderer').text
         print("Current album: ", self.current_album)
         all_a_tags = soup.find_all('a')
         for a in all_a_tags:
@@ -92,7 +93,8 @@ class Cloner:
         os.system("rm -rf *")
         print("Songs are fetching from this url:")
         print(f"Adres: {self.current_url}")
-        subprocess.run(['yt-dlp', '-x', self.current_url], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(['yt-dlp', '-x', self.current_url], stdout=subprocess.STDOUT,
+                       stderr=subprocess.STDOUT)
         print("Songs are fetched successfully!")
 
     def fetch_cover(self):
@@ -126,20 +128,21 @@ def check_requirements():
 
 
 def main():
-    print("Welcome to Youtube Music Cloner!")
-    if not check_requirements():
-        print("Install all requirements programs in Readme.md file!")
-        return 9  # Error Code
-
-    options = Options()
-    options.headless = True
-    options.binary_location = 'geckodriver'
-    driver = webdriver.Firefox(options=options)
+    driver = webdriver.Firefox()
 
     my_list = valid_args()
-
     cloner = Cloner(my_list, driver)
-    cloner.run_url_list()
+    try:
+        print("Welcome to Youtube Music Cloner!")
+        if not check_requirements():
+            print("Install all requirements programs in Readme.md file!")
+            return 9  # Error Code
+
+        cloner.run_url_list()
+    except Exception as e:
+        print("Error occurred: ", e)
+        driver.close()
+        return 1  # Error Code
 
 
 if __name__ == "__main__":
