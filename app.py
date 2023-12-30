@@ -10,8 +10,9 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
 
-MUSIC_FOLDER_PATH = "/app/music"  # IMPORTANT Change this PATH!
-TEMP_FOLDER_PATH = "/app/temp"  # IMPORTANT Change this PATH!
+HOME = os.path.expanduser("~")
+MUSIC_FOLDER_PATH = os.path.join(HOME, "music")
+TEMP_FOLDER_PATH = os.path.join(HOME,  "temp")
 
 music_file_extensions = ['.opus', '.oog,', '.webm', '.mp3', '.wav', '.flac', '.m4a', '.aac', '.wma', '.ogg']
 
