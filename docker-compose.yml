@@ -7,4 +7,4 @@ services:
       - ./music:/app/music
       - ./temp:/app/temp
 
-    command: "python3 /app/app.py urls.txt"
+    command: python3 /app/app.py urls.txt
