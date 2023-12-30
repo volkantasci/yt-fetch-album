@@ -14,7 +14,6 @@ RUN apt update && \
      apt-get install -y opus-tools && \
      apt-get install -y libopus-dev && \
         apt-get install -y firefox && \
-        apt-get install -y firefox-geckodriver && \
         apt-get install -y firefox-headless
 
 RUN mkdir /app
