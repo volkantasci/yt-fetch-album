@@ -7,11 +7,9 @@ from sys import argv
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.service import Service
-from webdriver_manager.firefox import GeckoDriverManager
 
-HOME = os.path.expanduser("~")
-MUSIC_FOLDER_PATH = os.path.join(HOME, "music")
+HOME = "/home/ubuntu/services/navidrome.volkantasci.com"
+MUSIC_FOLDER_PATH = os.path.join(HOME, "downloaded-music")
 TEMP_FOLDER_PATH = os.path.join(HOME,  "temp")
 
 music_file_extensions = ['.opus', '.oog,', '.webm', '.mp3', '.wav', '.flac', '.m4a', '.aac', '.wma', '.ogg']
@@ -135,8 +133,8 @@ def main():
 
     options = Options()
     options.headless = True
-    service = Service(GeckoDriverManager().install())
-    driver = webdriver.Firefox(service=service, options=options)
+    options.binary_location = 'geckodriver'
+    driver = webdriver.Firefox(options=options)
 
     my_list = valid_args()
 
